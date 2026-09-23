@@ -52,7 +52,7 @@ parte 5: formulario HTML + JavaScript
     Crea un archivo llamado formulario.html en la misma carpeta 00JSyEntorno.
     Crea un archivo llamado formulario.js en la misma carpeta 00JSyEntorno.
     Escribe el siguiente código en formulario.html:
-    <!DOCTYPE html>
+    /*<!DOCTYPE html>
     <html lang="es">
     <head>
     <meta charset="UTF-8">
@@ -77,7 +77,7 @@ parte 5: formulario HTML + JavaScript
         const nombre = document.getElementById('nombreInput').value;
         document.getElementById('salida').textContent = '¡Hola, ' + nombre + '!';
     });
-    });
+    });*/
     Desde VSCode abre formulario.html en tu navegador y prueba el formulario.
     ![alt text](image-3.png)
 
