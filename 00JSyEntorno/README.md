@@ -1,3 +1,89 @@
+Parte 1: Instalación y configuración
+    I.nstala Visual Studio Code
+    Descarga e instala VS Code desde code.visualstudio.com
+
+Parte 2: Primeros pasos con la consola del navegador
+    Abre tu navegador web (Chrome, Firefox, Edge, etc.).
+    Accede a cualquier página web y pulsa F12 o Ctrl+Shift+I para abrir las herramientas de desarrollo.
+    Haz clic en la pestaña "Consola".
+    Prueba los siguientes comandos uno por uno y observa el resultado:
+    2 + 2
+    console.log("¡Hola, mundo!")
+    let nombre = "Anita"
+    nombre
+
+    ![alt text](image.png)
+
+Parte 3: Tu primer archivo HTML + JavaScript
+    Crea una carpeta llamada 00JSyEntorno dentro de tu espacio de trabajo.
+    Dentro de esa carpeta, crea un archivo llamado hola.html.
+    Escribe el siguiente código en hola.html:
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+    <meta charset="UTF-8">
+    <title>Hola JS</title>
+    </head>
+    <body>
+    <script>
+        console.log("¡Hola, mundo!");
+        let nombre = "Ana";
+        console.log("Bienvenida, " + nombre);
+    </script>
+    </body>
+    </html>
+    Desde VSCode abre el archivo hola.html en tu navegador.
+    Observa el resultado en la consola del navegador.
+    ![alt text](image-2.png)
+
+
+Parte 4: Experimenta
+    Cambia el valor de la variable nombre por el tuyo y recarga la página.
+    Añade una línea que sume dos números y muestre el resultado con console.log.
+    Añade otra variable con tu apellido y muestra un saludo completo.
+    Modifica el saludo para que incluya el apellido en mayúsculas. Busca en la consola cómo convertir una cadena a mayúsculas. Para ello usa un literal de cadena (con tu nombre) seguido del operador punto (.)
+    Modifica el archivo para que el saludo se muestre en la página web en lugar de la consola. Usa document.body.innerHTML para esto:
+    document.body.innerHTML = "<h1>¡Hola, " + nombre + "!</h1>";
+    Publica tu proyecto en el repositorio de GitHub y usa GitHub Pages para alojarlo. Sigue esta guía para hacerlo.
+    ![alt text](image-1.png)
+
+
+parte 5: formulario HTML + JavaScript
+    Crea un archivo llamado formulario.html en la misma carpeta 00JSyEntorno.
+    Crea un archivo llamado formulario.js en la misma carpeta 00JSyEntorno.
+    Escribe el siguiente código en formulario.html:
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+    <meta charset="UTF-8">
+    <title>Formulario de Saludo</title>
+    </head>
+    <body>
+    <h1>Formulario de Saludo</h1>
+    <form id="formulario">
+        <label for="nombreInput">Nombre:</label>
+        <input type="text" id="nombreInput" required>
+        <button type="submit">Saludar</button>
+    </form>
+    <p id="salida"></p>
+    
+    <script src="formulario.js"></script>
+    </body>
+    </html>
+    Escribe el siguiente código en formulario.js:
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('formulario').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const nombre = document.getElementById('nombreInput').value;
+        document.getElementById('salida').textContent = '¡Hola, ' + nombre + '!';
+    });
+    });
+    Desde VSCode abre formulario.html en tu navegador y prueba el formulario.
+    ![alt text](image-3.png)
+
+
+
+
 Parte 6: Preguntas de reflexión
 ¿Qué hace console.log?
 - Mostrar en consola lo que le pasemos
