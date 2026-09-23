@@ -6,15 +6,26 @@
 </head>
 <body>
   <script>
-    console.log("¡Hola, mundo!");
     let nombre = "Ivan";
     let apellido = "Padilla";
-    console.log("Bienvenido, " + nombre + " " + apellido.toUpperCase());
-    let num1 = 33;
-    let num2 = 7;
-    let suma = num1 + num2;
-    console.log("La suma de " + num1 + " y " + num2 +  " es:" + suma);
+    let suma = 55 + 83;
+    console.log(suma);
+    console.log("Bienvenida, " + nombre + " " + apellido.toUpperCase());
     document.body.innerHTML = "<h1>¡Hola, " + nombre + "!</h1>";
+
+
+    //Declaro esta variable con let que si deja cambiarle tod, tipo y valor
+    let siCambai = 20;
+    //Esto no da error
+    siCambia = [1,2,3,4]
+
+    //Demostracion de conts
+    //Declaro una variable const asignandole el nuemro 10
+    const noCambia = 10;
+
+    //Ahora le reasigno y en vez de tener el numero 10 le meto un array de 4 numeros
+    //Daria error porque la estoy reasignando y const no deja que se reasignen sus variables 
+    noCambia = [1,2,3,4]
   </script>
 </body>
 </html>
