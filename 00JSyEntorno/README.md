@@ -15,6 +15,7 @@ nombre
 
 ## Parte 3: Tu primer archivo HTML + JavaScript
 Archivo `hola.html` dentro de la carpeta `00JSyEntorno`:
+[hola.html](https://ivanps006.github.io/2DAW/00JSyEntorno/hola.html)
 ```html
 <!DOCTYPE html>
 <html lang="es">
@@ -43,6 +44,7 @@ Archivo `hola.html` dentro de la carpeta `00JSyEntorno`:
 ![alt text](image-1.png)
 
 ## Parte 5: Formulario HTML + JavaScript
+[formulario.html](https://ivanps006.github.io/2DAW/00JSyEntorno/formulario.html)
 
 **`formulario.html`:**
 ```html
@@ -116,8 +118,3 @@ Sí, se puede evitar siempre que la variable no vaya a reasignarse: en ese caso 
 Hay dos eventos:
 1. **`DOMContentLoaded`**: se dispara cuando el navegador termina de cargar todo el HTML. Sirve para asegurarse de que JavaScript no intenta acceder a elementos del HTML antes de que existan en la página.
 2. **`submit`**: se dispara cuando el usuario envía el formulario. Sirve para capturar ese momento y ejecutar la lógica: leer el valor del input y mostrar el saludo.
-
-## Enlaces a las actividades
-[hola.html](https://ivanps006.github.io/2DAW/00JSyEntorno/hola.html)
-
-[formulario.html](https://ivanps006.github.io/2DAW/00JSyEntorno/formulario.html)
