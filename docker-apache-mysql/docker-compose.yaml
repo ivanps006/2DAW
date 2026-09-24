@@ -8,21 +8,9 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./src:/var/www/html
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_NAME: DWES
-      DB_USER: ivan
-      DB_PASSWORD: i2v0a0n6
+      - ../DAES/ActividadesPrimerasPHP:/var/www/html
     networks:
       - app_network
-
-volumes:
-  db_data:
 
 networks:
   app_network:

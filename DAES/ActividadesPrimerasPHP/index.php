@@ -35,3 +35,9 @@
     echo "¡Hola $nombre! El $nombre es el nombre de usuario asigando a la variable";
 ?>
 
+//Ejercicio 6
+<?php 
+    $nombreMadre = "Pilar";
+    print("<h4>El nombre de mi padre/madre es: $nombreMadre");
+?>
+

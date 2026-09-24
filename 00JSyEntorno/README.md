@@ -116,3 +116,8 @@ Sí, se puede evitar siempre que la variable no vaya a reasignarse: en ese caso 
 Hay dos eventos:
 1. **`DOMContentLoaded`**: se dispara cuando el navegador termina de cargar todo el HTML. Sirve para asegurarse de que JavaScript no intenta acceder a elementos del HTML antes de que existan en la página.
 2. **`submit`**: se dispara cuando el usuario envía el formulario. Sirve para capturar ese momento y ejecutar la lógica: leer el valor del input y mostrar el saludo.
+
+## Enlaces a las actividades
+[hola.html](https://ivanps006.github.io/2DAW/00JSyEntorno/hola.html)
+
+[formulario.html](https://ivanps006.github.io/2DAW/00JSyEntorno/formulario.html)
