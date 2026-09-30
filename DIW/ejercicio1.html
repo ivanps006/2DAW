@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finalizar Pedido - TechEdu Store</title>
+  <style>
+    /* ==========================================================================
+       ESTILOS - Cumplimiento 10 Heurísticas de Nielsen
+       ========================================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.5;
+    }
+
+    /* Contenedor principal flexible */
+    .checkout-box {
+      width: 100%;
+      max-width: 32rem;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .header-box {
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .title-text {
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: #1a202c;
+    }
+
+    /* H9: Error comprensible con indicación del campo */
+    .system-error {
+      background-color: #fff5f5;
+      color: #c53030;
+      font-size: 0.875rem;
+      padding: 0.875rem 1rem;
+      margin-bottom: 1.25rem;
+      border-left: 4px solid #e53e3e;
+      border-radius: 0 6px 6px 0;
+      line-height: 1.6;
+    }
+
+    .system-error strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+    }
+
+    /* H1: Indicador de estado del sistema */
+    .loading-indicator {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      background-color: #ebf8ff;
+      border: 1px solid #bee3f8;
+      border-radius: 6px;
+      color: #2b6cb0;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .loading-indicator.active {
+      display: flex;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #bee3f8;
+      border-top-color: #3182ce;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* H3: Control del usuario - enlace para editar cesta */
+    .edit-basket {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      margin-bottom: 1rem;
+      color: #3182ce;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+
+    .edit-basket:hover {
+      background-color: #ebf8ff;
+      text-decoration: underline;
+    }
+
+    .edit-basket:focus-visible {
+      outline: 2px solid #3182ce;
+      outline-offset: 2px;
+    }
+
+    /* Producto en la cesta */
+    .item-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.875rem;
+    }
+
+    .item-img {
+      width: 56px;
+      height: 56px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .item-desc {
+      color: #2d3748;
+      font-size: 0.95rem;
+      font-weight: 500;
+      flex-grow: 1;
+      line-height: 1.4;
+    }
+
+    .price-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.25rem;
+    }
+
+    .old-price {
+      color: #a0aec0;
+      font-size: 0.8rem;
+      text-decoration: line-through;
+    }
+
+    .new-price {
+      color: #1a202c;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    /* Formulario con labels accesibles */
+    .form-group {
+      margin-top: 1.25rem;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 0.375rem;
+    }
+
+    .form-group label .required {
+      color: #e53e3e;
+      margin-left: 0.25rem;
+    }
+
+    /* H10: Ayuda contextual con icono info */
+    .help-text {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.375rem;
+      font-size: 0.75rem;
+      color: #718096;
+      margin-top: 0.25rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .help-icon {
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+      margin-top: 1px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 0.625rem 0.875rem;
+      margin-bottom: 1rem;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #4299e1;
+      box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+    }
+
+    /* H5: Prevención de errores - estado de error en campo */
+    .input-field.error {
+      border-color: #e53e3e;
+      background-color: #fff5f5;
+    }
+
+    .input-field.error:focus {
+      border-color: #e53e3e;
+      box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.15);
+    }
+
+    .field-error {
+      display: none;
+      font-size: 0.75rem;
+      color: #e53e3e;
+      margin-top: -0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .input-row .input-group {
+      flex: 1;
+    }
+
+    /* Botones de acción */
+    .btn-group {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    /* Botón destructivo en ROJO con confirmación */
+    .btn-cancel {
+      background-color: #e53e3e;
+      color: #ffffff;
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-cancel:hover {
+      background-color: #c53030;
+    }
+
+    .btn-cancel:active {
+      transform: scale(0.98);
+    }
+
+    .btn-cancel:focus-visible {
+      outline: 3px solid #e53e3e;
+      outline-offset: 2px;
+    }
+
+    /* Botón principal en VERDE */
+    .btn-submit {
+      background-color: #38a169;
+      color: #ffffff;
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      flex-grow: 1;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: #2f855a;
+    }
+
+    .btn-submit:active {
+      transform: scale(0.98);
+    }
+
+    .btn-submit:focus-visible {
+      outline: 3px solid #38a169;
+      outline-offset: 2px;
+    }
+
+    /* H1: Estado deshabilitado durante carga */
+    .btn-submit:disabled {
+      background-color: #a0aec0;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* H7: Atajos de teclado */
+    .keyboard-shortcut {
+      display: inline-block;
+      padding: 0.125rem 0.375rem;
+      margin-left: 0.5rem;
+      background-color: #edf2f7;
+      border: 1px solid #cbd5e0;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-family: monospace;
+      color: #4a5568;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .checkout-box {
+        padding: 1rem;
+      }
+
+      .item-row {
+        flex-wrap: wrap;
+      }
+
+      .input-row {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .btn-group {
+        flex-direction: column-reverse;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="checkout-box">
+
+    <header class="header-box">
+      <h1 class="title-text">Resumen de tu Cesta (Pedido #8492)</h1>
+    </header>
+
+    <!-- H9: Error comprensible con indicación del campo -->
+    <div class="system-error" role="alert" id="error-message">
+      <strong>No se pudo procesar tu pago</strong>
+      Hubo un problema al conectar con tu banco. Por favor, verifica los datos de tu tarjeta e inténtalo de nuevo.
+    </div>
+
+    <!-- H1: Indicador de estado del sistema -->
+    <div class="loading-indicator" id="loading-indicator" role="status" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span>
+      <span>Procesando tu pago de forma segura...</span>
+    </div>
+
+    <!-- H3: Control del usuario - editar cesta -->
+    <button type="button" class="edit-basket" onclick="editarCesta()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+      </svg>
+      Editar cesta
+    </button>
+
+    <!-- Producto en la cesta -->
+    <article class="item-row">
+      <img 
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Crect width='56' height='56' fill='%23e2e8f0' rx='6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23718096' font-size='10'%3ECampus%3C/text%3E%3C/svg%3E" 
+        alt="Icono del producto Campus DIW" 
+        class="item-img"
+      >
+      <div class="item-desc">
+        Suscripción Anual Campus DIW (Acceso 12 meses)
+      </div>
+      <div class="price-container">
+        <span class="old-price">120 €</span>
+        <span class="new-price">89 €</span>
+      </div>
+    </article>
+
+    <!-- Formulario con labels accesibles -->
+    <form class="form-group" action="#" method="post" id="payment-form" novalidate>
+      <div>
+        <label for="card-name">
+          Nombre en la tarjeta
+          <span class="required" aria-hidden="true">*</span>
+        </label>
+        <input 
+          type="text" 
+          id="card-name" 
+          name="card-name" 
+          class="input-field" 
+          placeholder="Como aparece en la tarjeta"
+          required
+          autocomplete="cc-name"
+          aria-describedby="card-name-help"
+        >
+        <div class="help-text" id="card-name-help">
+          <svg class="help-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 16v-4"></path>
+            <path d="M12 8h.01"></path>
+          </svg>
+          <span>El nombre debe coincidir exactamente con el que aparece en la tarjeta.</span>
+        </div>
+        <p class="field-error" id="card-name-error">Por favor, introduce el nombre como aparece en la tarjeta.</p>
+      </div>
+
+      <div>
+        <label for="card-number">
+          Número de tarjeta
+          <span class="required" aria-hidden="true">*</span>
+        </label>
+        <input 
+          type="text" 
+          id="card-number" 
+          name="card-number" 
+          class="input-field" 
+          placeholder="1234 5678 9012 3456"
+          required
+          autocomplete="cc-number"
+          inputmode="numeric"
+          maxlength="19"
+          aria-describedby="card-number-help"
+        >
+        <div class="help-text" id="card-number-help">
+          <svg class="help-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 16v-4"></path>
+            <path d="M12 8h.01"></path>
+          </svg>
+          <span>Introduce los 16 dígitos sin espacios. Formateamos automáticamente.</span>
+        </div>
+        <p class="field-error" id="card-number-error">El número de tarjeta debe tener 16 dígitos.</p>
+      </div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label for="card-expiry">
+            Caducidad
+            <span class="required" aria-hidden="true">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="card-expiry" 
+            name="card-expiry" 
+            class="input-field" 
+            placeholder="MM/AA"
+            required
+            autocomplete="cc-exp"
+            inputmode="numeric"
+            maxlength="5"
+            aria-describedby="card-expiry-help"
+          >
+          <div class="help-text" id="card-expiry-help">
+            <svg class="help-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 16v-4"></path>
+              <path d="M12 8h.01"></path>
+            </svg>
+            <span>Mes y año en formato MM/AA (ej: 12/27).</span>
+          </div>
+          <p class="field-error" id="card-expiry-error">Introduce una fecha válida en formato MM/AA.</p>
+        </div>
+
+        <div class="input-group">
+          <label for="card-cvc">
+            CVC
+            <span class="required" aria-hidden="true">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="card-cvc" 
+            name="card-cvc" 
+            class="input-field" 
+            placeholder="123"
+            required
+            autocomplete="cc-csc"
+            inputmode="numeric"
+            maxlength="4"
+            aria-describedby="card-cvc-help"
+          >
+          <div class="help-text" id="card-cvc-help">
+            <svg class="help-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 16v-4"></path>
+              <path d="M12 8h.01"></path>
+            </svg>
+            <span>Los 3 o 4 dígitos al dorso de tu tarjeta.</span>
+          </div>
+          <p class="field-error" id="card-cvc-error">El CVC debe tener 3 o 4 dígitos.</p>
+        </div>
+      </div>
+
+      <!-- Botones de acción semánticos -->
+      <div class="btn-group">
+        <button 
+          type="button" 
+          class="btn-cancel" 
+          onclick="confirmarVaciarCarrito()"
+        >
+          Vaciar Carrito
+        </button>
+
+        <button 
+          type="submit" 
+          class="btn-submit"
+          id="btn-submit"
+        >
+          Pagar Ahora (89 €)
+          <span class="keyboard-shortcut" title="Atajo de teclado">Ctrl+Enter</span>
+        </button>
+      </div>
+    </form>
+
+  </main>
+
+  <script>
+    // H5: Prevención de errores - validación en tiempo real
+    const form = document.getElementById('payment-form');
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const btnSubmit = document.getElementById('btn-submit');
+
+    // Formateo automático del número de tarjeta
+    const cardNumberInput = document.getElementById('card-number');
+    cardNumberInput.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      let formattedValue = value.match(/.{1,4}/g)?.join(' ') || '';
+      e.target.value = formattedValue;
+    });
+
+    // Formateo automático de la fecha de caducidad
+    const cardExpiryInput = document.getElementById('card-expiry');
+    cardExpiryInput.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 2) {
+        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+      }
+      e.target.value = value;
+    });
+
+    // Validación en tiempo real
+    function validateField(input, errorId, validationFn) {
+      const errorElement = document.getElementById(errorId);
+      const isValid = validationFn(input.value);
+      
+      if (!isValid && input.value !== '') {
+        input.classList.add('error');
+        errorElement.classList.add('visible');
+      } else {
+        input.classList.remove('error');
+        errorElement.classList.remove('visible');
+      }
+      
+      return isValid;
+    }
+
+    // Validaciones específicas
+    const validators = {
+      'card-name': (value) => value.trim().length >= 3,
+      'card-number': (value) => value.replace(/\s/g, '').length === 16,
+      'card-expiry': (value) => {
+        const match = value.match(/^(\d{2})\/(\d{2})$/);
+        if (!match) return false;
+        const month = parseInt(match[1], 10);
+        return month >= 1 && month <= 12;
+      },
+      'card-cvc': (value) => /^\d{3,4}$/.test(value)
+    };
+
+    // Aplicar validación en tiempo real
+    Object.keys(validators).forEach(fieldId => {
+      const input = document.getElementById(fieldId);
+      const errorId = fieldId + '-error';
+      
+      input.addEventListener('blur', function() {
+        validateField(this, errorId, validators[fieldId]);
+      });
+      
+      input.addEventListener('input', function() {
+        if (this.classList.contains('error')) {
+          validateField(this, errorId, validators[fieldId]);
+        }
+      });
+    });
+
+    // H1: Indicador de estado + H3: Control del usuario
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Validar todos los campos
+      let allValid = true;
+      Object.keys(validators).forEach(fieldId => {
+        const input = document.getElementById(fieldId);
+        const errorId = fieldId + '-error';
+        if (!validateField(input, errorId, validators[fieldId])) {
+          allValid = false;
+        }
+      });
+      
+      if (!allValid) {
+        // H9: Enfocar el primer campo con error
+        const firstError = document.querySelector('.input-field.error');
+        if (firstError) firstError.focus();
+        return;
+      }
+      
+      // H1: Mostrar indicador de carga
+      loadingIndicator.classList.add('active');
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = 'Procesando...';
+      
+      // Simular procesamiento
+      setTimeout(() => {
+        loadingIndicator.classList.remove('active');
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = 'Pagar Ahora (89 €)<span class="keyboard-shortcut">Ctrl+Enter</span>';
+        alert('¡Pago procesado con éxito! Gracias por tu compra.');
+      }, 2500);
+    });
+
+    // H7: Atajo de teclado Ctrl+Enter para pagar
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.key === 'Enter') {
+        e.preventDefault();
+        form.dispatchEvent(new Event('submit'));
+      }
+    });
+
+    // H3: Confirmación para vaciar carrito
+    function confirmarVaciarCarrito() {
+      if (confirm('¿Estás seguro de que quieres vaciar el carrito? Esta acción no se puede deshacer.')) {
+        alert('Carrito vaciado correctamente.');
+      }
+    }
+
+    // H3: Editar cesta
+    function editarCesta() {
+      alert('Redirigiendo a la cesta para editar productos...');
+    }
+  </script>
+
+</body>
+</html>
