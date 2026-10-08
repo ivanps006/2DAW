@@ -450,4 +450,147 @@ positivo entre 1 y 10 obtenido aleatoriamente. */
     print(" $nombreUSuario $apellido");
 ?>
 
+<?php 
+    //Ejercicio 46
+    $a = 1;
+    $b = 6;
+    $c = 9;
+
+    $ecuacionPositiva = (-$b + sqrt(($b**2) - (4*$a*$c))/ (2*$a));
+    $ecuacionNegativa = (-$b - sqrt(($b**2) - (4*$a*$c))/ (2*$a));
+    
+    print("La ecuacion en positivo es: $ecuacionPositiva");
+    print("<br> La ecuacion en negativo da: $ecuacionNegativa");
+    print("<br>");
+    print("<br>");
+
+
+?>
+
+
+<?php
+    //Ejercicio 47
+    for($i=0; $i<5; $i++){
+        $arrayNumeros =[];
+       for($j=0; $j<=2; $j++){
+            $arrayNumeros[] = random_int(0,20);
+       }
+       sort($arrayNumeros);
+       print(implode(" ", $arrayNumeros) . "<br>");
+    }
+        print("<br>");
+
+?>
+
+<?php 
+    //Ejercicio 48
+    for($i=0; $i<5; $i++){
+        $arrayNumeros =[];
+       for($j=0; $j<=3; $j++){
+            $arrayNumeros[] = random_int(0,20);
+       }
+       if($arrayNumeros[0] >=10){
+            //unset($arrayNumeros[0]);
+            sort($arrayNumeros);
+            print(implode(" ", $arrayNumeros) . "<br>");
+       } else {
+            //unset($arrayNumeros[0]);
+            rsort($arrayNumeros);
+            print(implode(",", $arrayNumeros) . "<br>");
+       }  
+    }
+    print("<br>");
+    print("<br>");
+?>
+
+<?php 
+    //Ejercicio 56
+    $mayor = 0;
+    $menor = 0;
+    do{
+        $num = random_int(0,5);
+        print($num. " ");
+        if($num >= $mayor ){
+            $mayor = $num;
+        } else{
+            $menor = $num;
+        }
+    } while( $num != 0);
+
+    print("El numero mayor ha sido $mayor y el menor ha sido $menor");
+        print("<br>");
+    print("<br>");
+
+?>
+
+<?php 
+    //Ejercicio 57
+    /**$abecedario = [
+        "A", "B", "C", "D", "E", "F", "G",
+        "H", "I", "J", "K", "L", "M", "N",
+        "Ñ", "O", "P", "Q", "R", "S", "T",
+        "U", "V", "W", "X", "Y", "Z"
+    ];
+    $cadena = "";
+    $corte = random_int(0,27);
+    for($i=$corte; $i>0; $i--){
+        $posicion = random_int(0, 26);
+        $cadena = $cadena . $abecedario[$posicion];
+    }
+
+    print("La cadena es: $cadena"); */
+
+    $cadena = "";
+    $corte = random_int(1, 10);
+
+    for($i = 0; $i < $corte; $i++){
+        $numero = random_int(65, 90);
+        $cadena = $cadena . chr($numero);
+    }
+
+    print("La cadena es: $cadena<br>");
+
+    for($i = strlen($cadena) - 1; $i >= 0; $i--){
+        print($cadena[$i]);
+    }
+?>
+
+<?php 
+    //Ejercicio 58
+    $frase = strtolower("Fernando Alonso ganara el mundial el año que viene");
+    $numero = random_int(65,90);
+    $caracter = strtolower(chr($numero));
+    $contador = 0;
+
+    print("<br>El caracter elejido es: $caracter<br>");
+
+    for($i=0; $i<strlen($frase); $i++){
+        if($caracter == $frase[$i]){
+            $contador++;
+        }
+    }
+
+    if($contador != 0){
+        print("La letra aparece: $contador veces");
+    } else{
+        print("La letra no aparece en el texto");
+    }
+        print("<br>");
+
+
+?>
+
+<?php 
+    //Ejercicio 55
+        print("Ejercicio 55");
+
+    $numAleatorio = random_int(1,19);
+    for($i=1; $i<$numAleatorio; $i+=2){
+        print("<br> $i");
+        for($j=$i-2; $j>=1; $j -=2 ){
+            print(" $j ");
+        }
+    }
+?>
+
 

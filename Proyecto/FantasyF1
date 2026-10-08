@@ -1,0 +1,56 @@
+Tenemos un Inicio de Sesion y un Ragistro
+
+Registro:
+	- Nos registramos con correo y contraseña
+	- Ponemos nombre a nuestro equipo
+	- Escogemos a los pilotos y constructores
+
+Inicio sesion:
+	- Ponemos nuestro correo y contraseña y entramos 
+	
+Apartados:
+	- Ligas
+	- Mi equipo
+	- Calendario
+	- Estadisticas
+
+Ligas:
+	- Unite o crear una liga
+	- Crear una liga: 	
+		- Nombre: Clase 2º DAW
+		- Temporada: 2027
+		- Privacidad: Privada
+		- [Crear liga]
+		-Código de invitación:
+      		-7K4P9X
+		-Comparte este código con tus amigos.
+	- Unirse: 
+		- Código de liga:
+		-[ 7K4P9X ]
+		-[Unirse]
+
+Al terminar el Gran Perio, se vera quien ha ganado de en ese GP. A ese se le dara un dinero para hacer mejores fichajes la proxima carrera. Se repartiran dineros entre todos los participantes, a cada uno menos. 
+
+
+Como quedaria 
+
+Obligatorio:
+	👤 Registro/login
+	🏆 Crear/unirse a ligas
+	🏎️ Crear escudería
+	💰 Sistema de presupuesto
+	🏁 Resultados mediante API
+	⭐ Sistema de puntuación
+	🏆 Clasificación de cada liga
+
+Muy recomendable:
+	🔄 Mercado de fichajes
+	📊 Historial de puntos
+	📈 Gráficas
+	👥 Gestión de participantes de la liga
+
+Si sobra tiempo:
+	💰 Precios dinámicos
+	🔮 Predicciones
+	🏅 Logros
+	🔔 Notificaciones

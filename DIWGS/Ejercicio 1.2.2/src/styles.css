@@ -1,0 +1,43 @@
+/* Reset básico opcional y correcto modelado */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f4f4f9;
+}
+
+/* Maquetación del componente profile-card según los criterios */
+.profile-card {
+  padding: 20px;
+  border: 2px solid #000;
+  margin: 15px;
+  max-width: 350px;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.profile-card h2 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 1.25rem;
+  color: #111;
+}
+
+.profile-card .role {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.profile-card .bio {
+  margin: 0;
+  color: #666;
+  line-height: 1.5;
+}

@@ -1,20 +1,8 @@
-function createVisitor(name, age, ticketId){
-    return {
-        name: name, 
-        age: age,
-        ticketId: ticketId
-    };
-}
+const createVisitor = (name, age, ticketId) => ({ name, age, ticketId });
 
 console.log(createVisitor("Ivan", 20, "Heeu2"));
 
-function revokeTicket(visitor){
-    return {
-        name: visitor.name,
-        age: visitor.age,
-        ticketId: null
-    };
-}
+const revokeTicket = (visitor) => ({name: visitor.name, age: visitor.age,ticketId: null});
 
 const visitor = {
   name: 'Verena Nardi',
@@ -24,32 +12,29 @@ const visitor = {
 
 console.log(revokeTicket(visitor));
 
-function ticketStatus(objSeg, id) {
+const ticketStatus = (objSeg, id) => { 
+    // Uso in para comprobar si el id esta dentro del objeto 
+    if (!(id in objSeg)) { 
+        return "unknown ticket id"; 
+    } 
+    
+    if (objSeg[id] === null) { 
+        return "not sold"; 
+    } 
+    
+    return `sold to ${objSeg[id]}`; };
 
-    //Uso in para comprobar si el id esta dentro del objeto
-    if (!(id in objSeg)) {
-        return "unknown ticket id";
-    }
 
-    if (objSeg[id] === null) {
-        return "not sold";
-    }
-
-    return `sold to ${objSeg[id]}`;
-}
-
-function simpleTicketStatus(objSeg, id) {
-
-    if (!(id in objSeg)) {
-        return "invalid ticket !!!";
-    }
-
-    if (objSeg[id] === null) {
-        return "invalid ticket !!!";
-    }
-
-    return objSeg[id];
-}
+const simpleTicketStatus = (objSeg, id) => { 
+  if (!(id in objSeg)) { 
+    return "invalid ticket !!!"; 
+  } 
+  
+  if (objSeg[id] === null) { 
+    return "invalid ticket !!!"; 
+  } 
+  
+  return objSeg[id]; };
 
 const tickets = {
   '0H2AZ123': null,
@@ -78,8 +63,8 @@ console.log(simpleTicketStatus(tickets, 'RE90VAW7'));
 
 // => 'invalid ticket !!!'
 
-function gtcVersion(visitor) {
-    return visitor.gtc?.version;
+const gtcVersion = (visitor) => {
+  return visitor.gtc?.version;
 }
 
 const visitorNew = {
